@@ -1,50 +1,38 @@
-import React from "react";
-class UserLogin extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            email:'',
-            password:'',
-            isLoggedIn:false
-        }
-        this.handleChange=this.handleChange.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
-    }
-    handleChange(event){
-        console.log(event.target);
+import React,{useState} from "react";
+import {useAuthentication} from "./Authentication";
+function UserLogin(){
+    const [input,setInput]=useState({
+        fname:"",
+        email:""
+    });
+    const handleChange=(event)=>{
         const {name,value}=event.target;
-        console.log({name,value});
-        this.setState({
+        setInput(input=>({
+            ...input,
             [name]:value
-        });
+        }));
     }
-    handleSubmit(event){
+    const auth=useAuthentication();
+    const handleSubmit=(event)=>{
         event.preventDefault();
-        if(this.state.email.trim()===''){
-            alert("Email field is cannot be empty");
+        if(input.fname.trim()===''){
+            alert("First Name field is cannot be empty");
             return;
         }
-        if (this.state.password.trim()===''){
-            alert("Password Field cannot be empty")
+        if (input.email.trim()===''){
+            alert("Email Field cannot be empty")
             return;
         }
-        // try{
-        //     //yeha Form Submit hunu paryo..
-        //     //User bhayey load hunu paryo
-        //     //user nabhayey user chhaina bhannu paryo
-        // }
-
+        auth.LoginAction(input,"/login","/");
     }
-  render(){return(
-        <form onSubmit={this.handleSubmit}>
-            <label>UserID:<input type="text" name="userame" value={this.state.username} onChange={this.handleChange}/></label>
-            <label>Password:<input type="password" name="password" value={this.state.password} onChange={this.handleChange}/></label>
+    return(
+        <form onSubmit={handleSubmit}>
+            <label>First Name:<input type="text" name="fname" value={input.fname} onChange={handleChange}/></label>
+            <label>EmailID:<input type="text" name="email" value={input.email} onChange={handleChange}/></label>
             <input type="submit" value="Login" />
         </form>
   );
-  }
 }
-
 export{
     UserLogin,
   }

@@ -1,47 +1,38 @@
-import React from "react";
-class AdminLogin extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            user:'',
-            passwd:'',
-        }
-        this.handleChange=this.handleChange.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
-    }
-    handleChange(event){
+import React,{useState} from "react";
+import {useAuthentication} from "./Authentication";
+function AdminLogin(){
+    const [input,setInput]=useState({
+        user:"",
+        passwd:""
+    });
+    const handleChange=(event)=>{
         const {name,value}=event.target;
-        this.setState({
+        setInput(input=>({
+            ...input,
             [name]:value
-        });
+        }));
     }
-    handleSubmit(event){
+    const auth=useAuthentication();
+    const handleSubmit=(event)=>{
         event.preventDefault();
-        if(this.state.email.trim()===''){
+        if(input.user.trim()===''){
             alert("User field is cannot be empty");
             return;
         }
-        if (this.state.password.trim()===''){
+        if (input.passwd.trim()===''){
             alert("Password Field cannot be empty")
             return;
         }
-        // try{
-        //     //yeha Form Submit hunu paryo..
-        //     //User bhayey load hunu paryo
-        //     //user nabhayey user chhaina bhannu paryo
-        // }
-
+        auth.LoginAction(input,"/login/admin","/admin");
     }
-  render(){return(
-        <form onSubmit={this.handleSubmit}>
-            <label>User:<input type="text" name="user" value={this.state.user} onChange={this.handleChange}/></label>
-            <label>Password:<input type="password" name="passwd" value={this.state.passwd} onChange={this.handleChange}/></label>
+  return(
+        <form onSubmit={handleSubmit}>
+            <label>User:<input type="text" name="user" value={input.user} onChange={handleChange}/></label>
+            <label>Password:<input type="password" name="passwd" value={input.passwd} onChange={handleChange}/></label>
             <input type="submit" value="Login" />
         </form>
   );
-  }
 }
-
 export{
     AdminLogin,
   }

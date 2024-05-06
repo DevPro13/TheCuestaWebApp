@@ -1,18 +1,13 @@
-import React,{createContext} from "react";
-import { useNavigate,useContext } from "react-router-dom";
+import React,{createContext,useState,useContext} from "react";
+import { useNavigate} from "react-router-dom";
 const AuthenticationContext=createContext();
-class Authentication extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            user:null,
-            token:localStorage.getItem("site")||""
-        }
-    }
-    render(){
-        const navigate=useNavigate();
+function Authentication(props){
+        const [user, setUser] = useState(null);
+        const [token, setToken] = useState(localStorage.getItem("site") || "");
+        const navigateTo=useNavigate();
         const api_endpoint="http://127.0.0.1:5000";
         const LoginAction=async (credentials,fetchpath,navpath)=>{
+            console.log(credentials,fetchpath,navpath);
             try{
             const response=await fetch(`${api_endpoint}/${fetchpath}`,{
                 method:"POST",
@@ -23,12 +18,10 @@ class Authentication extends React.Component{
             });
             const res=await response.json();
             if(res.data){
-                this.setState({
-                    user:res.data.user,
-                    token:res.data.token
-                });
+                setUser(res.data.user);
+                setToken(res.token);
                 localStorage.setItem("site",res.data.token);
-                navigate((navpath));
+                navigateTo((navpath));
                 return;
             }
             throw new Error(res.message);
@@ -38,19 +31,20 @@ class Authentication extends React.Component{
         }
     };
         const LogOut=(navpath)=>{
-            this.setState({
-                user:"",
-                token:""
-            });
-            navigate({navpath});
+            setUser(null);
+            setToken("");
+            navigateTo({navpath});
         };
-        const{user,token}=this.state;
         return(
             <AuthenticationContext.Provider value={{user,token,LoginAction,LogOut}}>
-                {this.props.children}
+                {props.children}
             </AuthenticationContext.Provider>
         );
     }
+export {
+    Authentication,
 }
-export default Authentication;
-export const useAuthentica=AuthenticationContext.Consumer;
+// export const useAuthentication=AuthenticationContext.Consumer;
+export const useAuthentication = () => {
+    return useContext(AuthenticationContext);
+  };
