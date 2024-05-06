@@ -46,5 +46,5 @@ class UserLogin extends React.Component{
 }
 
 export{
-    CreateUser,
+    UserLogin,
   }

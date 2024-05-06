@@ -4,10 +4,10 @@
 
 .App-header {
   background-color: #ffffff;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* justify-content: center; */
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
   border-bottom: 1px solid black;
   font-size:20px;
   color:#282c34;

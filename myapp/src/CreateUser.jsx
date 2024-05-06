@@ -17,9 +17,7 @@ class CreateUser extends React.Component{
         return emailRegularExp.test(this.state.email);
     }
     handleChange(event){
-        console.log(event.target);
         const {name,value}=event.target;
-        console.log({name,value});
         this.setState({
             [name]:value
         });
