@@ -1,8 +1,8 @@
 import React from "react";
 import './Styles.css';
 import {Header,Footer} from './HeaderFooter';
-import{Navigate} from 'react-router-dom';
 class CreateUser extends React.Component{
+    //crate new customer account
     constructor(props){
         super(props);
         this.state={
@@ -107,11 +107,11 @@ class CreateUser extends React.Component{
         <div className="upload-create-form">
             <div className="form-label">Enter Customer Details to Create Customer Account</div>
         <form onSubmit={this.handleSubmit}>
-            <label>Full Name:<input type="text" value={this.state.fullname} name="fullname" onChange={this.handleChange}/></label>
-            <label>Email:<input type="text" value={this.state.email} name="email" onChange={this.handleChange}/></label>
-            <label>Address:<input type="text" value={this.state.address} name="address" onChange={this.handleChange}/></label>
-            <label>Height:<input type="number" value={this.state.height} name="height" onChange={this.handleChange}/></label>
-            <label>Weight in KG:<input type="number" value={this.state.weight} name="weight" onChange={this.handleChange}/></label>
+            <label>Full Name:<input type="text" placeholder="Enter name" value={this.state.fullname} name="fullname" onChange={this.handleChange}/></label>
+            <label>Email:<input type="text" placeholder="Enter Email" value={this.state.email} name="email" onChange={this.handleChange}/></label>
+            <label>Address:<input type="text" placeholder="Enter address" value={this.state.address} name="address" onChange={this.handleChange}/></label>
+            <label>Height:<input type="number" placeholder="Enter height in feet" value={this.state.height} name="height" onChange={this.handleChange}/></label>
+            <label>Weight in KG:<input type="number" placeholder="Enter Weight" value={this.state.weight} name="weight" onChange={this.handleChange}/></label>
             <input type="submit" value="Create User" />
             <a href="/admin"><input type="button" value="Cancel/Home"/> </a>
         </form>

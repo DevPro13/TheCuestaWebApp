@@ -24,13 +24,14 @@ function App(){
           <Route path="/admin" element={<AdminHome />}/>
           <Route path="/admin/upload" element={<Upload />}/>
           </Route>
-          <Route path="*" element={<NoPage />}/>
+          <Route path="*" element={<NoPage />}/>{/* Routes other than listed here */}
         </Routes>
       </Authentication>
       </BrowserRouter>
     );
 }
 function Login(props){
+  //IF the user is already logged in, guard respective login page
   const user=useAuthentication();
   const path=props.url;
   if(path==="/login"){

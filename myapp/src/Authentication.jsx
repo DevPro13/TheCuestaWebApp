@@ -2,6 +2,7 @@ import React,{createContext,useState,useContext} from "react";
 import { useNavigate} from "react-router-dom";
 const AuthenticationContext=createContext();
 function Authentication(props){
+    //Make user authenticaton and session with the webapp
         const [user, setUser] = useState(localStorage.getItem("user") || "");;
         const [token, setToken] = useState(localStorage.getItem("site") || "");
         const [session_of, setSessionOf] = useState(localStorage.getItem("session_of") || "");
@@ -42,6 +43,7 @@ function Authentication(props){
         }
     };
         const LogOut=(navpath)=>{
+            //remove stored informaton like token, userid etc
             setUser("");
             setToken("");
             setSessionOf("");

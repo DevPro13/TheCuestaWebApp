@@ -90,9 +90,9 @@ class Upload extends React.Component {
         <div className="upload-create-form">
             <div className="form-label">Upload Video file</div>
           <form onSubmit={this.handleSubmit}>
-            <label>Video Title:<input type="text" value={this.state.title} name="title" onChange={this.handleChange}/></label>
-            <label>Name of Customer:<input type="text" value={this.state.name} name="name" onChange={this.handleChange}/></label>
-            <label>Email:<input type="text" value={this.state.email} name="email" onChange={this.handleChange}/></label>
+            <label>Video Title:<input type="text" placeholder="Enter video title" value={this.state.title} name="title" onChange={this.handleChange}/></label>
+            <label>Name of Customer:<input type="text" placeholder="Customer name" value={this.state.name} name="name" onChange={this.handleChange}/></label>
+            <label>Email:<input type="text" value={this.state.email} placeholder="Valid Customer Email"  name="email" onChange={this.handleChange}/></label>
             <label>Select File:<input type="file" name="filename" onChange={this.handleChangeVideoFile}/></label>
             <input type="submit" value="Upload Video" />
             <a href="/admin"><input type="button" value="Cancel Upload/Home"/> </a>

@@ -44,6 +44,8 @@ class FetchData extends React.Component{
     })();
 }
     componentDidMount() {
+        //To create new components in the dom
+        //Invoke function will run immediately to fetch video data for user
     (async()=>{
             const api_endpoint="http://127.0.0.1:5000";
             const fetchpath="/";
@@ -86,7 +88,7 @@ class FetchData extends React.Component{
                 <div key={index} className="video-box">
                 <div className="title-section">
                     Title: {video.title}<br/>
-                    Filename:{video.fileName}
+                    Filename:{video.filename.split("/")[1]}
                 </div>
                 <div className="video-section"/>
                 <div className="video-download" onClick={()=>this.handleDownload(video.filename)}>
