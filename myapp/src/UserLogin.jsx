@@ -1,4 +1,6 @@
 import React,{useState} from "react";
+import './Styles.css';
+import {Header,Footer} from './HeaderFooter';
 import {useAuthentication} from "./Authentication";
 function UserLogin(){
     const [input,setInput]=useState({
@@ -26,11 +28,20 @@ function UserLogin(){
         auth.LoginAction(input,"/login","/");
     }
     return(
-        <form onSubmit={handleSubmit}>
-            <label>First Name:<input type="text" name="fname" value={input.fname} onChange={handleChange}/></label>
-            <label>EmailID:<input type="text" name="email" value={input.email} onChange={handleChange}/></label>
+        <React.Fragment>
+        <Header path="userlogin"/>
+        <div className='content-body'>
+        <div className="user-login-form">
+            <div className="top-login-form">Enter Your Credentials to Login</div>
+          <form onSubmit={handleSubmit}>
+            <label>Name:<input type="text" placeholder="example:Dev" name="fname" value={input.fname} onChange={handleChange}/></label>
+            <label>EmailID:<input type="text" placeholder="example@gmail.com" name="email" value={input.email} onChange={handleChange}/></label>
             <input type="submit" value="Login" />
         </form>
+        </div>
+        </div>
+        <Footer/>
+        </React.Fragment>
   );
 }
 export{

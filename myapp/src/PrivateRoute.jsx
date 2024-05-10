@@ -1,9 +1,18 @@
 import React from "react";
-import { Navigate,Outlet } from "react-router-dom";
+import { Navigate,Outlet,useLocation } from "react-router-dom";
 import {useAuthentication} from "./Authentication";
 function PrivateRoute(props){
+        const location=useLocation();
         const user=useAuthentication();
-        return(!user.token?<Navigate to={props.path}/>:<Outlet/>);
+        const pattern = /^\/admin(?:\/[^\/]*)*$/;//regular expession to check routes start with /admin/<..>
+        const exists = pattern.test(location.pathname);
+        if(!user.token||(user.session_of==="admin" && !exists)){
+            return(<Navigate to={props.path}/>);
+        }
+        if(user.session_of==="customer"&& exists){
+            return(<Navigate to={props.path}/>);
+        }
+        return(<Outlet/>);
     }
 export{
     PrivateRoute,

@@ -1,4 +1,7 @@
 import React from "react";
+import './Styles.css';
+import {Header,Footer} from './HeaderFooter';
+import{Navigate} from 'react-router-dom';
 class CreateUser extends React.Component{
     constructor(props){
         super(props);
@@ -56,15 +59,53 @@ class CreateUser extends React.Component{
             alert("Weight cannot be nagative")
             return;
         }
-
-
-        // try{
-        //     //yeha Form Submit hunu paryo..
-        //     //User bhayey load hunu paryo
-        //     //user nabhayey user chhaina bhannu paryo
-        // }
+        (async()=>{
+            const api_endpoint="http://127.0.0.1:5000";
+            const fetchpath="/admin/createuser";
+            console.log(this.state);
+            try{
+                const response=await fetch(`${api_endpoint}${fetchpath}`,{
+                    method:"POST",
+                    mode: "cors",
+                    cache: "no-cache",
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                    body:JSON.stringify(this.state),
+                });
+                const res=await response.json();
+                console.log(res);
+                if(res){
+                    if(response.status===200){
+                        alert(res.message);
+                        this.setState({
+                            fullname:'',
+                            email:'',
+                            address:'',
+                            height:'',
+                            weight:'',
+                        });
+                    }
+                    else{
+                        alert(res.message);
+                    }
+                    return;
+                }
+                throw new Error(res.message);
+            }
+            catch(err){
+                console.error(err);
+                return;
+            }
+        })();
     }
-  render(){return(
+  render(){
+    return(
+        <React.Fragment>
+        <Header path="admin"/>
+        <div className='content-body'>
+        <div className="upload-create-form">
+            <div className="form-label">Enter Customer Details to Create Customer Account</div>
         <form onSubmit={this.handleSubmit}>
             <label>Full Name:<input type="text" value={this.state.fullname} name="fullname" onChange={this.handleChange}/></label>
             <label>Email:<input type="text" value={this.state.email} name="email" onChange={this.handleChange}/></label>
@@ -72,8 +113,13 @@ class CreateUser extends React.Component{
             <label>Height:<input type="number" value={this.state.height} name="height" onChange={this.handleChange}/></label>
             <label>Weight in KG:<input type="number" value={this.state.weight} name="weight" onChange={this.handleChange}/></label>
             <input type="submit" value="Create User" />
+            <a href="/admin"><input type="button" value="Cancel/Home"/> </a>
         </form>
-  );
+    </div>
+    </div>
+    <Footer/>
+    </React.Fragment>
+    );
   }
 }
 export{
