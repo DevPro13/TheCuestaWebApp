@@ -1,13 +1,15 @@
-from flask import Flask,redirect,request,jsonify,url_for,send_file
+from flask import Flask,request,jsonify,send_file
 from flask_sqlalchemy  import SQLAlchemy
 import os
-from dotenv import load_dotenv
-from flask_cors import CORS
-from flask_jwt_extended import JWTManager,get_jwt_identity,create_access_token,jwt_required
+from dotenv import load_dotenv#to read env. vars.
+from flask_cors import CORS #to enable Cross-Origin-Resource Sharing for the flask app
+from flask_jwt_extended import JWTManager,create_access_token #to create json web token
 from sqlalchemy import inspect
 from werkzeug.utils import secure_filename
+#videos uploaded from the admin will be stored here
 UPLOAD_FOLDER = 'VideoUploads'
-Video_Extensions=['mp4','mov','mkv','avi','mpeg','ogg','3gp','webm','flv']#to allow only video file
+#to allow only video file
+Video_Extensions=['mp4','mov','mkv','avi','mpeg','ogg','3gp','webm','flv']
 app = Flask(__name__,static_folder='../myapp/build', static_url_path='/')
 #app configuration
 cors = CORS(app)
@@ -65,7 +67,7 @@ class VideoTable(db.Model):
 #>>>>>>>>>>>>>>>>>>>>>>>CREATE TABLE IN THE DATABASE IF NOT EXIST>>>>>>>>>>>>>>>>>>>>>
 with app.app_context():
 	inspect_tbl_created=inspect(db.engine)
-	#check any table (users ot videotables) exists or not
+	#check any table (customer or videotables) exists or not
 	if not inspect_tbl_created.has_table("customer"):
 		with app.app_context():
 			#create all tables
@@ -78,9 +80,9 @@ def not_found(e):
 @app.route("/", methods=["GET"])
 def Home():
 	if not request.args:
-		return app.send_static_file('index.html')
+		#if user is not logged in, it will send userID:null in the server and this will handle this request
+		return app.send_static_file('index.html'),404
 	uid=int(request.args.get('userid'))
-	print(uid)
 	with app.app_context():
 		videos=VideoTable.query.filter_by(customerid=uid).all()
 		if len(videos)!=0:
@@ -197,6 +199,7 @@ def Upload():
 def Download():
 	video_path=request.args.get('file')
 	return send_file(video_path,as_attachment=True),200
-cors = CORS(app, resources={'/*':{'origins': 'http://localhost:3000'}}) 
+#React frontend server port running on port 3000
+cors = CORS(app, resources={'/*':{'origins': 'http://localhost:3000'}})
 if __name__ == '__main__':
 	app.run(debug=True)
