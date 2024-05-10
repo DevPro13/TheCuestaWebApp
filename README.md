@@ -13,7 +13,8 @@
 * `name`=`manu` and `email`=`manu@gmail.com`
 * `name`=`praks` and `email`=`praks@gmail.com`
 * `name`=`sanim` and `email`=`sanim@gmail.com`
-## Video uploaded by admin for a user will be available at user home to download
+* `name`=`logpoint` and `email`=`logpoint@gmail.com`
+## Video uploaded by admin for a user will be available at user home to download(see users `dev` and `logpoint`)
 ## Admin Login:use `username`=`devpro13` and `password`=`1234@1234` to login as Admin
 ## Admin can now create new account for customer and upload video of the customer
 #  Running in local directory
