@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 UPLOAD_FOLDER = 'VideoUploads'
 #to allow only video file
 Video_Extensions=['mp4','mov','mkv','avi','mpeg','ogg','3gp','webm','flv']
-app = Flask(__name__,static_folder='../myapp/build', static_url_path='/')
+app = Flask(__name__,static_folder='../build', static_url_path='/')
 #app configuration
 cors = CORS(app)
 load_dotenv()
@@ -79,7 +79,7 @@ def not_found(e):
     return app.send_static_file('index.html')
 @app.route("/", methods=["GET"])
 def Home():
-	if not request.args:
+	if not request.args or request.args.get('userid')=='null':
 		#if user is not logged in, it will send userID:null in the server and this will handle this request
 		return app.send_static_file('index.html'),404
 	uid=int(request.args.get('userid'))
@@ -186,9 +186,7 @@ def Upload():
 				:"Video file with simular filename already uploaded to the user"}),302
 			else:
 				#upload in the database
-				print("I was here")
 				new_video=VideoTable(title=title,filename=filename,customer=customer)
-				print("I was not here..ok  here")
 				db.session.add(new_video)
 				db.session.commit()
 				file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
