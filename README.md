@@ -6,7 +6,7 @@ Bungee jumping service provider companies capture bungee jumping videos of custo
 ***
 # Run **The Cuesta Web APP**
 ### Clone the project
-* `git clone`
+* `git clone https://github.com/DevPro13/TheCuestaWebApp`
 
 ### Running the app from docker container
 ###  Load docker image into your local docker repository
