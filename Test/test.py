@@ -1,9 +1,11 @@
 import sys
 APP_DIR="../Backend/"
 sys.path.append(APP_DIR)
-from application import app,db,Customer,Admin,VideoTable
+from application import app
 import unittest
-import requests
+""""
+Please update name and email in formData of CreateUserTest before running the test.
+"""
 class LoginTest(unittest.TestCase):
     def setUp(self):
         self.client=app.test_client()
@@ -37,8 +39,8 @@ class CreateUserTest(unittest.TestCase):
     def setUp(self):
         self.client=app.test_client()
         self.formData={
-            "fullname":"logpoint",
-            "email":"logpoint@gmail.com",
+            "fullname":"mohani",
+            "email":"mohaani@gmail.com",
             "address":"Jawalakhel",
             "height":5.6,
             "weight":70
@@ -84,7 +86,7 @@ class DownLoadVideoTest(unittest.TestCase):
 #         file="test.txt"
 #         videofile={'videofile':(open(file,'rb'),file)}
 #         data = dict{'title': 'This is the video of Bungee Jumping. Baisakh 2081', 'email': 'dev@example.com','videofile':videofile}
-#         response=requests.post(url,files=data)
+#         response=self.client.post(url,files=data)
 #         Video_Extensions=['mp4','mov','mkv','avi','mpeg','ogg','3gp','webm','flv']
 #         err_msg="Invalid Video File: Please Upload  a video file. Video files has file extensions as {} etc".format(",".join(i for i in Video_Extensions[:5]))
 #         self.assertEqual(response.status_code,401);
