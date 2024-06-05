@@ -2,7 +2,7 @@
 # THE CUESTA WEB APP
 Bungee jumping service provider companies capture bungee jumping videos of customers, edit them, and provide them to the customers after the video is ready. This process is a bit tedious, inefficient, and time-consuming because it involves multiple manual steps such as contacting customers individually, managing video files, and ensuring each customer receives the correct video. To streamline and automate this process, we present you with **The Cuesta WebApp**. This app allows the company owner to create new customer accounts and upload the customers' bungee jumping videos to the platform. Later, the customers can log in to the app, access their bungee jumping videos, and download them as well. One customer cannot access the video of another customer.<br>
 ## The process flow diagram of The Cuesta Web App.
-![System Process Flow Diagram](./CuestaWebapp System Block and process flow diagram.png)
+![System Process Flow Diagram](CuestaWebapp System Block and process flow diagram.png)
 ***
 # Run **The Cuesta Web APP**
 ### Clone the project
