@@ -9,7 +9,9 @@ COPY requirements.txt .env ./
 #install packages
 RUN pip install --no-cache-dir -r requirements.txt
 #copy sqlite database file
-COPY Backend/instance/myWebAppDB.db ./backend/instance/
+COPY Backend/instance/cuestaWebAppDB.db ./backend/instance/
+#copy Video storage folder
+COPY Backend/VideoUploads ./backend/VideoUploads
 COPY Backend/application.py Backend/.flaskenv ./backend/
 ENV FLASK_ENV production
 #Expose port 5000
