@@ -1,0 +1,12 @@
+myapp/build
+myapp/package-lock.json
+.VENV
+.env
+Backend/instance/site.db
+Backend/test.py
+Backend/admin_user_create.py
+Backend/customer_create.py
+Backend/uploadVideo.py
+Backend/__pycache__
+SampleVideoToUpload
+.dockerignore
